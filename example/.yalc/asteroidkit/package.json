@@ -1,0 +1,98 @@
+{
+  "name": "asteroidkit",
+  "description": "",
+  "version": "0.0.8",
+  "author": "",
+  "license": "",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "scripts": {
+    "dev": "concurrently \"yarn build --watch\" \"yarn storybook\" \"yarn test:watch\" ",
+    "build": "tsup --onSuccess \"yarn yalc publish --push --changed\"",
+    "watch": "nodemon -e js,ts,tsx,jsx --ignore dist --exec \"yarn build\"",
+    "type-check": "tsc",
+    "lint": "eslint --ignore-path .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",
+    "lint:fix": "yarn lint --fix && prettier --write .",
+    "test": "jest --coverage --passWithNoTests",
+    "test:ci": "yarn test --ci",
+    "test:watch": "jest --watch",
+    "commit": "cz",
+    "storybook": "start-storybook -p 6006 --quiet",
+    "build-storybook": "build-storybook",
+    "deploy-storybook": "storybook-to-ghpages",
+    "release": "yarn build && yarn release-it"
+  },
+  "tsup": {
+    "entry": [
+      "src/index.ts"
+    ],
+    "treeshake": true,
+    "sourcemap": true,
+    "minify": true,
+    "clean": true,
+    "dts": true,
+    "splitting": false,
+    "format": [
+      "cjs",
+      "esm"
+    ],
+    "external": [
+      "react"
+    ]
+  },
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "lint-staged": {
+    "./{src,tests}/**/*.{ts,js,jsx,tsx}": [
+      "eslint --ignore-path .gitignore --fix"
+    ],
+    "*": "prettier --write"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/@ryansonshine/cz-conventional-changelog"
+    }
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore(release): v${version}"
+    },
+    "github": {
+      "release": true
+    },
+    "npm": {
+      "publish": false
+    }
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=17",
+    "react-dom": ">=17"
+  },
+  "resolutions": {
+    "glob-parent": ">=5.1.2",
+    "parse-url": ">=8.1.0",
+    "trim": ">=0.0.3",
+    "trim-newlines": ">=3.0.1"
+  },
+  "dependencies": {
+    "@rainbow-me/rainbowkit": "^0.8.1",
+    "ethers": "^5.5.1",
+    "wagmi": "^0.9.1",
+    "yalc": "1.0.0-pre.53"
+  },
+  "yalcSig": "294ae920df70ca1d35e63fdee5f37115"
+}

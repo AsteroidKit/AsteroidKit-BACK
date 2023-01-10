@@ -1,6 +1,8 @@
 dist
 coverage
 storybook-static
+example
+**/example/**/*
 .prettierignore
 yarn.lock
 *.snap
