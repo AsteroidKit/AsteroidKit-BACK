@@ -1,9 +1,13 @@
 /* eslint-disable */
-import { Address, Connector } from '@wagmi/core';
+import { Address, Chain, Connector } from '@wagmi/core';
 import { ethers } from 'ethers';
 
 import { Web3AuthCore } from '@web3auth/core';
-import { CHAIN_NAMESPACES, ADAPTER_EVENTS } from '@web3auth/base';
+import {
+  CHAIN_NAMESPACES,
+  ADAPTER_EVENTS,
+  SafeEventEmitterProvider,
+} from '@web3auth/base';
 import { OpenloginAdapter } from '@web3auth/openlogin-adapter';
 
 const chainConfig = {
@@ -23,7 +27,7 @@ const web3authCore = new Web3AuthCore({
   chainConfig,
 });
 
-const adapter = new OpenloginAdapter({
+const socialAdapter = new OpenloginAdapter({
   adapterSettings: {
     network: 'testnet',
     clientId:
@@ -32,11 +36,17 @@ const adapter = new OpenloginAdapter({
     storageKey: 'local',
     loginConfig: {
       google: {
-        name: 'any name',
+        name: 'Google',
         verifier: 'poc-google-testnet',
         typeOfLogin: 'google',
         clientId:
           '52560353044-dru4anqjptro5ssbsha1tosq222gfcpa.apps.googleusercontent.com',
+      },
+      twitch: {
+        name: 'Twitch',
+        verifier: 'poc-facebook-testnet',
+        typeOfLogin: 'twitch',
+        clientId: '8bhn7spr5h1nwby5gdq14uza8qmonj',
       },
     },
   },
@@ -82,30 +92,31 @@ function subscribeAuthEvents(web3auth: any) {
   });
 }
 
-web3authCore.configureAdapter(adapter);
+web3authCore.configureAdapter(socialAdapter);
 subscribeAuthEvents(web3authCore);
 
 (async () => {
   await web3authCore.init();
 })();
 
-export default class SocialConnector extends Connector {
-  id: string = 'google';
-  name: string = 'Google';
+export class SocialConnector extends Connector {
+  id: string = 'socialConnector';
+  name: string = 'Social Connector';
   ready: boolean = true;
-  provider: any;
+  provider: SafeEventEmitterProvider | null;
 
-  constructor(config: any) {
+  constructor(config: { chains: Chain[]; options: any }) {
     super(config);
+    this.provider = null;
   }
 
   async connect(): Promise<any> {
-    this.provider = await web3authCore.connectTo(adapter.name, {
-      loginProvider: 'google',
+    this.provider = await web3authCore.connectTo(socialAdapter.name, {
+      loginProvider: this.options.oauthOptions.providers[0],
     });
 
     const userInfo = await web3authCore.getUserInfo();
-    console.log(userInfo);
+    console.debug(userInfo);
 
     return {
       account: await this.getAccount(),
@@ -118,7 +129,8 @@ export default class SocialConnector extends Connector {
   }
 
   disconnect(): Promise<void> {
-    return Promise.resolve();
+    web3authCore.clearCache();
+    return web3authCore.logout();
   }
 
   async getAccount(): Promise<Address> {

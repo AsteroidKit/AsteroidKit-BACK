@@ -8,6 +8,7 @@ export default defineConfig({
   clean: true,
   dts: true,
   splitting: false,
+  define: { global: 'window' },
   format: ['cjs', 'esm'],
   external: ['react'],
 });

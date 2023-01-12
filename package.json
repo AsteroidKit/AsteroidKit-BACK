@@ -1,7 +1,7 @@
 {
   "name": "asteroidkit",
   "description": "",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "author": "",
   "license": "",
   "keywords": [],
@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "concurrently \"yarn build --watch\" \"yarn storybook\" \"yarn test:watch\" ",
-    "build": "tsup --onSuccess \"yarn yalc publish --push --changed\"",
+    "build": "tsup --onSuccess \"yarn yalc publish --push --changed --replace\"",
     "watch": "nodemon -e js,ts,tsx,jsx --ignore dist --exec \"yarn build\"",
     "type-check": "tsc",
     "lint": "eslint --ignore-path .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",

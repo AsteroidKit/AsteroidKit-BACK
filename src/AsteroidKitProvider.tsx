@@ -12,7 +12,10 @@ import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 
 import '@rainbow-me/rainbowkit/styles.css';
-import { rainbowSocialConnector } from './connectors/social/connector';
+import {
+  TwitchConnector,
+  GoogleConnector,
+} from './connectors/social/connector';
 
 const { chains, provider } = configureChains(
   [mainnet, polygon],
@@ -35,12 +38,12 @@ const connectors = connectorsForWallets([
   ...wallets,
   {
     groupName: 'Social',
-    wallets: [rainbowSocialConnector({ chains })],
+    wallets: [GoogleConnector({ chains }), TwitchConnector({ chains })],
   },
 ]);
 
 const wagmiClient = createClient({
-  autoConnect: true,
+  autoConnect: false,
   connectors,
   provider,
 });
