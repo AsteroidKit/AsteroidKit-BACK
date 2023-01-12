@@ -1,6 +1,10 @@
 import React, { FC, ReactNode } from 'react';
 
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import {
+  connectorsForWallets,
+  getDefaultWallets,
+  RainbowKitProvider,
+} from '@rainbow-me/rainbowkit';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon } from 'wagmi/chains';
 
@@ -8,6 +12,7 @@ import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 
 import '@rainbow-me/rainbowkit/styles.css';
+import { rainbowSocialConnector } from './connectors/social/connector';
 
 const { chains, provider } = configureChains(
   [mainnet, polygon],
@@ -21,10 +26,18 @@ const { chains, provider } = configureChains(
   ]
 );
 
-const { connectors } = getDefaultWallets({
+const { wallets } = getDefaultWallets({
   appName: 'My RainbowKit App',
   chains,
 });
+
+const connectors = connectorsForWallets([
+  ...wallets,
+  {
+    groupName: 'Social',
+    wallets: [rainbowSocialConnector({ chains })],
+  },
+]);
 
 const wagmiClient = createClient({
   autoConnect: true,
