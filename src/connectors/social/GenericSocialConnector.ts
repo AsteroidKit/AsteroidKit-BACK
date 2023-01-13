@@ -15,7 +15,7 @@ const IS_SERVER = typeof window === 'undefined';
 
 type SocialProviderName = 'google' | 'twitch';
 
-export class SocialConnector extends Connector {
+export class GenericSocialConnector extends Connector {
   ready = !IS_SERVER;
   id: string = 'socialConnector';
   name: string = 'Social Connector';

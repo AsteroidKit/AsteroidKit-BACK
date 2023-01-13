@@ -2,7 +2,7 @@ import { Wallet } from '@rainbow-me/rainbowkit';
 import { CHAIN_NAMESPACES } from '@web3auth/base';
 import { Web3AuthCore } from '@web3auth/core';
 import { OpenloginAdapter } from '@web3auth/openlogin-adapter';
-import { SocialConnector } from './GenericSocialConnector';
+import { GenericSocialConnector } from './GenericSocialConnector';
 import { OpenLoginAdapterConfig } from './OpenLoginAdapterConfig';
 
 const chainConfig = {
@@ -31,7 +31,7 @@ export const GoogleConnector = ({ chains }: any): Wallet => ({
     'https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png',
   iconBackground: '#fff',
   createConnector: () => {
-    const connector = new SocialConnector({
+    const connector = new GenericSocialConnector({
       chains,
       options: {
         socialProviderName: 'google',
@@ -51,7 +51,7 @@ export const TwitchConnector = ({ chains }: any): Wallet => ({
   iconBackground: '#000000',
 
   createConnector: () => {
-    const connector = new SocialConnector({
+    const connector = new GenericSocialConnector({
       chains,
       options: {
         socialProviderName: 'twitch',
