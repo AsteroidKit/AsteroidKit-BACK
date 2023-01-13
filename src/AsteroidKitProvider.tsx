@@ -5,6 +5,7 @@ import {
   getDefaultWallets,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit';
+
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon } from 'wagmi/chains';
 
@@ -30,7 +31,7 @@ const { chains, provider } = configureChains(
 );
 
 const { wallets } = getDefaultWallets({
-  appName: 'My RainbowKit App',
+  appName: 'My AsteroidKit App',
   chains,
 });
 
