@@ -129,16 +129,12 @@ export class GenericSocialConnector extends Connector {
   }
 
   async switchChain(chainId: number) {
-    console.log('@@@ Swtich chain called');
     try {
       const chain = this.chains.find((x) => x.id === chainId);
-      console.log('@@@ chain: ', JSON.stringify(chain));
       if (!chain) throw new Error(`Unsupported chainId: ${chainId}`);
-      console.log('@@@ chain is supported');
       const provider = await this.getProvider();
 
       if (!provider) throw new Error('Please login first');
-      console.log('@@@ wallet_addEthereumChain call: ');
       provider.request({
         method: 'wallet_addEthereumChain',
         params: [
@@ -153,7 +149,6 @@ export class GenericSocialConnector extends Connector {
           },
         ],
       });
-      console.log('@@@ wallet_switchEthereumChain call: ');
       await provider.request({
         method: 'wallet_switchEthereumChain',
         params: [
@@ -177,7 +172,9 @@ export class GenericSocialConnector extends Connector {
 
   protected onAccountsChanged(accounts: string[]): void {
     if (accounts.length === 0) this.emit('disconnect');
-    else this.emit('change', { account: getAddress(accounts[0]) });
+    else {
+      this.emit('change', { account: getAddress(accounts[0]) });
+    }
   }
 
   protected isChainUnsupported(chainId: number): boolean {

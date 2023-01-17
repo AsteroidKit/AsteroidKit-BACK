@@ -1,5 +1,4 @@
 import { AsteroidKitProvider, rainbowkit } from 'asteroidkit';
-import { useState } from 'react';
 import './App.css';
 
 function App() {
