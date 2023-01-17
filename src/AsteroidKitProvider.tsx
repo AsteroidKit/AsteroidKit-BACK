@@ -9,6 +9,7 @@ import {
   RainbowKitProvider,
   Theme,
 } from '@rainbow-me/rainbowkit';
+
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon } from 'wagmi/chains';
 
