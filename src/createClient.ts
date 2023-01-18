@@ -15,7 +15,15 @@ import {
 } from './connectors/social/connector';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const createClient = ({ appId }: { appId: string }) => {
+export const createClient = ({
+  appId,
+  social,
+  wallets,
+}: {
+  appId: string;
+  social: boolean;
+  wallets?: any;
+}) => {
   const { chains, provider } = configureChains(
     [mainnet, polygon],
     [
@@ -28,18 +36,30 @@ export const createClient = ({ appId }: { appId: string }) => {
     ]
   );
 
-  const { wallets } = getDefaultWallets({
-    appName: 'My AsteroidKit App',
-    chains,
-  });
+  const walletList = [];
 
-  const connectors = connectorsForWallets([
-    ...wallets,
-    {
+  if (!wallets) {
+    walletList.push({
+      groupName: 'Popular',
+      wallets: getDefaultWallets({ appName: appId, chains }).wallets,
+    });
+  } else {
+    walletList.push({
+      groupName: 'Popular',
+      wallets: wallets
+        .filter((wallet: any) => wallet.enabled)
+        .map((wallet: any) => wallet.connector),
+    });
+  }
+
+  if (social) {
+    walletList.push({
       groupName: 'Social',
       wallets: [GoogleConnector({ chains }), TwitchConnector({ chains })],
-    },
-  ]);
+    });
+  }
+
+  const connectors = connectorsForWallets(walletList);
 
   const wagmiClient = wagmiCreateClient({
     autoConnect: true,

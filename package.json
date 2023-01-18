@@ -132,6 +132,7 @@
     "@web3auth/core": "^4.0.0",
     "@web3auth/openlogin-adapter": "^4.0.0",
     "ethers": "^5.5.1",
+    "siwe": "1.1.6",
     "wagmi": "^0.9.1"
   }
 }
