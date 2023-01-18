@@ -18,33 +18,21 @@ import {
   GoogleConnector,
 } from './connectors/social/connector';
 
-const { chains, provider } = configureChains(
-  [mainnet, polygon],
-  [
-    alchemyProvider({
-      // This is Alchemy's default API key.
-      // You can get your own at https://dashboard.alchemyapi.io
-      apiKey: 'oZsv-F9NN3NhersEryE56jM08jomw0Ya',
-    }),
-    publicProvider(),
-  ]
-);
-
-const getConnectorFromName = ({ _chains, name }: any) => {
+const getConnectorFromName = ({ chains, name }: any) => {
   if (name === 'metamask') {
-    return metaMaskWallet({ chains: _chains });
+    return metaMaskWallet({ chains });
   }
 
   if (name === 'coinbase') {
-    return coinbaseWallet({ appName: 'Demo App', chains: _chains });
+    return coinbaseWallet({ appName: 'Demo App', chains });
   }
 
   if (name === 'ledger') {
-    return ledgerWallet({ chains: _chains });
+    return ledgerWallet({ chains });
   }
 
   if (name === 'argent') {
-    return argentWallet({ chains: _chains });
+    return argentWallet({ chains });
   }
 
   return null;
@@ -61,6 +49,18 @@ export const createClient = ({
   social: boolean;
   wallets: any;
 }) => {
+  const { chains, provider } = configureChains(
+    [mainnet, polygon],
+    [
+      alchemyProvider({
+        // This is Alchemy's default API key.
+        // You can get your own at https://dashboard.alchemyapi.io
+        apiKey: 'oZsv-F9NN3NhersEryE56jM08jomw0Ya',
+      }),
+      publicProvider(),
+    ]
+  );
+
   const walletList: WalletList = [
     {
       groupName: 'Recommended',
