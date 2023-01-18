@@ -20,7 +20,7 @@ type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 export type AsteroidKitProviderProps = Optional<
   RainbowKitProviderProps,
   'chains'
-> & { config?: Config }; // TODO: probably remove wallets from final version
+> & { config?: Config };
 
 const AsteroidKitProvider: FC<AsteroidKitProviderProps> = ({
   config,
