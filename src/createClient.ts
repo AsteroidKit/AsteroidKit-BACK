@@ -1,7 +1,9 @@
+import { connectorsForWallets, WalletList } from '@rainbow-me/rainbowkit';
+
 import {
-  connectorsForWallets,
-  getDefaultWallets,
-} from '@rainbow-me/rainbowkit';
+  metaMaskWallet,
+  walletConnectWallet,
+} from '@rainbow-me/rainbowkit/wallets';
 
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
@@ -16,13 +18,12 @@ import {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const createClient = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   appId,
   social,
-  wallets,
 }: {
   appId: string;
   social: boolean;
-  wallets?: any;
 }) => {
   const { chains, provider } = configureChains(
     [mainnet, polygon],
@@ -30,28 +31,23 @@ export const createClient = ({
       alchemyProvider({
         // This is Alchemy's default API key.
         // You can get your own at https://dashboard.alchemyapi.io
-        apiKey: '_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC',
+        apiKey: 'oZsv-F9NN3NhersEryE56jM08jomw0Ya',
       }),
       publicProvider(),
     ]
   );
 
-  const walletList = [];
+  const walletList: WalletList = [
+    {
+      groupName: 'Recommended',
+      wallets: [metaMaskWallet({ chains }), walletConnectWallet({ chains })],
+    },
+  ];
 
-  if (!wallets) {
-    walletList.push({
-      groupName: 'Popular',
-      wallets: getDefaultWallets({ appName: appId, chains }).wallets,
-    });
-  } else {
-    walletList.push({
-      groupName: 'Popular',
-      wallets: wallets
-        .filter((wallet: any) => wallet.enabled)
-        .map((wallet: any) => wallet.connector),
-    });
-  }
-
+  /**
+   * Should we add social connectors by default?
+   * Should we have a way to enable by code?
+   */
   if (social) {
     walletList.push({
       groupName: 'Social',
