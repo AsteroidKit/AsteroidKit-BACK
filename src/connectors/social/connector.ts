@@ -47,8 +47,9 @@ export const GoogleConnector = ({ chains }: any): Wallet => ({
 export const TwitchConnector = ({ chains }: any): Wallet => ({
   id: 'openlogin_twitch',
   name: 'Twitch',
-  iconUrl: '',
-  iconBackground: '#000000',
+  iconUrl:
+    'https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/twitch-1024.png',
+  iconBackground: '#fff',
 
   createConnector: () => {
     const connector = new GenericSocialConnector({
