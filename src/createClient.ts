@@ -1,8 +1,10 @@
 import { connectorsForWallets, WalletList } from '@rainbow-me/rainbowkit';
 
 import {
+  argentWallet,
+  coinbaseWallet,
+  ledgerWallet,
   metaMaskWallet,
-  walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets';
 
 import { alchemyProvider } from 'wagmi/providers/alchemy';
@@ -16,38 +18,58 @@ import {
   GoogleConnector,
 } from './connectors/social/connector';
 
+const { chains, provider } = configureChains(
+  [mainnet, polygon],
+  [
+    alchemyProvider({
+      // This is Alchemy's default API key.
+      // You can get your own at https://dashboard.alchemyapi.io
+      apiKey: 'oZsv-F9NN3NhersEryE56jM08jomw0Ya',
+    }),
+    publicProvider(),
+  ]
+);
+
+const getConnectorFromName = ({ _chains, name }: any) => {
+  if (name === 'metamask') {
+    return metaMaskWallet({ chains: _chains });
+  }
+
+  if (name === 'coinbase') {
+    return coinbaseWallet({ appName: 'Demo App', chains: _chains });
+  }
+
+  if (name === 'ledger') {
+    return ledgerWallet({ chains: _chains });
+  }
+
+  if (name === 'argent') {
+    return argentWallet({ chains: _chains });
+  }
+
+  return null;
+};
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const createClient = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   appId,
   social,
+  wallets,
 }: {
   appId: string;
   social: boolean;
+  wallets: any;
 }) => {
-  const { chains, provider } = configureChains(
-    [mainnet, polygon],
-    [
-      alchemyProvider({
-        // This is Alchemy's default API key.
-        // You can get your own at https://dashboard.alchemyapi.io
-        apiKey: 'oZsv-F9NN3NhersEryE56jM08jomw0Ya',
-      }),
-      publicProvider(),
-    ]
-  );
-
   const walletList: WalletList = [
     {
       groupName: 'Recommended',
-      wallets: [metaMaskWallet({ chains }), walletConnectWallet({ chains })],
+      wallets: wallets.map((wallet: any) =>
+        getConnectorFromName({ chains, name: wallet.name })
+      ),
     },
   ];
 
-  /**
-   * Should we add social connectors by default?
-   * Should we have a way to enable by code?
-   */
   if (social) {
     walletList.push({
       groupName: 'Social',
