@@ -20,7 +20,7 @@ import {
 
 const getConnectorFromName = ({ chains, name }: any) => {
   if (name === 'metamask') {
-    return metaMaskWallet({ chains });
+    return metaMaskWallet({ chains, shimDisconnect: true });
   }
 
   if (name === 'coinbase') {
