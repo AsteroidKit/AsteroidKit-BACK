@@ -6,6 +6,7 @@ export interface AppConfigInterface {
   accentForegroundColor: string;
   appId: string;
   chains: string[];
+  compact: boolean;
   siwe: boolean;
   social: boolean;
   theme: string;

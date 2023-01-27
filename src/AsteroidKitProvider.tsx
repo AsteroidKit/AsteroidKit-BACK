@@ -26,6 +26,7 @@ import {
 } from '@rainbow-me/rainbowkit/wallets';
 import { publicProvider } from 'wagmi/providers/public';
 import { avalanche, optimism, polygon } from 'wagmi/chains';
+import { ModalSizes } from '@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/ModalSizeContext';
 import { fetchFromServers } from './lib/fetcher';
 import {
   GoogleConnector,
@@ -42,6 +43,7 @@ export type AsteroidKitProviderProps = Optional<
 interface AsteroidKitConfiguration {
   chains: Chain[];
   siwe: boolean;
+  size: string;
   social: boolean;
   theme: object;
   wallets: string[];
@@ -303,6 +305,7 @@ const AsteroidKitConfigurationProvider = ({
     social: false,
     wallets: [],
     theme: lightTheme(),
+    size: 'compact',
   } as AsteroidKitConfiguration);
 
   const { setValue } = useAsteroidKitSyncState();
@@ -322,6 +325,7 @@ const AsteroidKitConfigurationProvider = ({
               data.themeId,
               data.accentColor
             ) as object),
+          size: data.compact ? 'compact' : 'default',
         });
 
         const wagmiChains = mapChainNameToWAGMIChain(data.chains);
@@ -431,7 +435,7 @@ const AsteroidKitConfigurationProvider = ({
         theme={configuration.theme as Theme}
         initialChain={initialChain}
         id={id}
-        modalSize={modalSize}
+        modalSize={modalSize ?? (configuration.size as ModalSizes)}
         showRecentTransactions={showRecentTransactions}
         coolMode={coolMode}
         avatar={avatar}
