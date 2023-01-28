@@ -18,7 +18,7 @@ const chainConfig = {
 
 const web3AuthInstance = new Web3AuthCore({
   clientId:
-    'BBJ4lhDKJUof04YIDVmcsLdI-uNdyEr3ZWytZxy5DdcYsQY1z2N6NyMqGrl3EMjHH0Q6_z3pFPWFeb7FszSt7fk',
+    'BOpE2QwLzG8lTiFOblI4-5Tv7dEuQ3--ZCVdNpmnC7DqMhsxdKpUaE2tF3IUizccy7_B4h04uEj6g5zpqYbRf9c',
   chainConfig,
 });
 
