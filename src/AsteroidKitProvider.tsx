@@ -93,7 +93,8 @@ const mapWalletNameToRainbowKitWallet = (
 
 const mapThemeNameToRainbowKitTheme = (
   themeName: string,
-  accentColor: string
+  accentColor: string,
+  accentColorForeground: string
 ): object => {
   const t256noir = {
     blurs: {
@@ -112,7 +113,7 @@ const mapThemeNameToRainbowKitTheme = (
     colors: {
       accentColor,
       // accentColor: '#3898FF',
-      accentColorForeground: '#FFF',
+      accentColorForeground,
       actionButtonBorder: 'rgba(255, 255, 255, 0.04)',
       actionButtonBorderMobile: 'rgba(255, 255, 255, 0.08)',
       actionButtonSecondaryBackground: 'rgba(255, 255, 255, 0.08)',
@@ -172,7 +173,7 @@ const mapThemeNameToRainbowKitTheme = (
     colors: {
       accentColor,
       // accentColor: '#0E76FD',
-      accentColorForeground: '#FFF',
+      accentColorForeground,
       actionButtonBorder: 'rgba(0, 0, 0, 0.04)',
       actionButtonBorderMobile: 'rgba(0, 0, 0, 0.06)',
       actionButtonSecondaryBackground: 'rgba(0, 0, 0, 0.06)',
@@ -231,8 +232,8 @@ const mapThemeNameToRainbowKitTheme = (
     },
     colors: {
       accentColor,
-      // accentColor: '#F5F7F8',
-      accentColorForeground: '#2F383E',
+      // accentColor: '#00ff2a',
+      accentColorForeground,
       actionButtonBorder: 'rgba(0, 0, 0, 0.04)',
       actionButtonBorderMobile: 'rgba(0, 0, 0, 0.06)',
       actionButtonSecondaryBackground: 'rgba(0, 0, 0, 0.06)',
@@ -242,7 +243,7 @@ const mapThemeNameToRainbowKitTheme = (
       connectButtonBackgroundError: '#FF494A',
       connectButtonInnerBackground:
         'linear-gradient(0deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.06))',
-      connectButtonText: '#25292E',
+      connectButtonText: accentColorForeground,
       connectButtonTextError: '#FFF',
       connectionIndicator: '#30E000',
       downloadBottomCardBackground:
@@ -259,8 +260,8 @@ const mapThemeNameToRainbowKitTheme = (
       modalText: '#FFFFFF',
       modalTextDim: '#FFFFFF',
       modalTextSecondary: 'rgba(255,255, 255, 0.6)',
-      profileAction: '#FFF',
-      profileActionHover: 'rgba(255, 255, 255, 0.5)',
+      profileAction: 'rgb(60, 66, 66)',
+      profileActionHover: '#313232a6',
       profileForeground: 'rgba(60, 66, 66, 0.06)',
       selectedOptionBorder: 'rgba(60, 66, 66, 0.1)',
       standby: '#FFD641',
@@ -323,7 +324,8 @@ const AsteroidKitConfigurationProvider = ({
             theme ??
             (mapThemeNameToRainbowKitTheme(
               data.themeId,
-              data.accentColor
+              data.accentColor,
+              data.accentForegroundColor
             ) as object),
           size: data.compact ? 'compact' : 'default',
         });
