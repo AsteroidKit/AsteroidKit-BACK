@@ -5,7 +5,7 @@ import {
   useConnectModal,
   getDefaultWallets,
   connectorsForWallets,
-} from '@rainbow-me/rainbowkit';
+} from 'asteroidkit-rk';
 import { createClient } from './createClient';
 import { AsteroidKitProvider } from './AsteroidKitProvider';
 

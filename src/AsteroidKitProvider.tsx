@@ -7,14 +7,14 @@ import {
   useAsteroidKitSyncState,
   lightTheme,
   connectorsForWallets,
-} from '@rainbow-me/rainbowkit';
+} from 'asteroidkit-rk';
 import {
   RainbowKitProviderProps,
   Theme,
-} from '@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/RainbowKitProvider';
+} from 'asteroidkit-rk/dist/components/RainbowKitProvider/RainbowKitProvider';
 import { Chain, configureChains, mainnet, useClient } from 'wagmi';
 
-// import '@rainbow-me/rainbowkit/styles.css';
+// import 'asteroidkit-rk/styles.css';
 import { SiweMessage } from 'siwe';
 import {
   argentWallet,
@@ -23,10 +23,10 @@ import {
   metaMaskWallet,
   trustWallet,
   walletConnectWallet,
-} from '@rainbow-me/rainbowkit/wallets';
+} from 'asteroidkit-rk/wallets';
 import { publicProvider } from 'wagmi/providers/public';
 import { avalanche, optimism, polygon } from 'wagmi/chains';
-import { ModalSizes } from '@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/ModalSizeContext';
+import { ModalSizes } from 'asteroidkit-rk/dist/components/RainbowKitProvider/ModalSizeContext';
 import { fetchFromServers } from './lib/fetcher';
 import {
   GoogleConnector,

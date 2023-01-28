@@ -1,6 +1,6 @@
-import { connectorsForWallets, WalletList } from '@rainbow-me/rainbowkit';
+import { connectorsForWallets, WalletList } from 'asteroidkit-rk';
 
-import { metaMaskWallet } from '@rainbow-me/rainbowkit/wallets';
+import { metaMaskWallet } from 'asteroidkit-rk/wallets';
 
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';

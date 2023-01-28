@@ -3026,20 +3026,6 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@rainbow-me/rainbowkit@file:.yalc/@rainbow-me/rainbowkit":
-  version "0.8.1"
-  dependencies:
-    "@babel/runtime" ">=7.0.0 <8.0.0"
-    "@vanilla-extract/css" "1.9.1"
-    "@vanilla-extract/dynamic" "2.0.2"
-    "@vanilla-extract/sprinkles" "1.5.0"
-    "@web3auth/base" "^4.0.0"
-    "@web3auth/core" "^4.0.0"
-    "@web3auth/openlogin-adapter" "^4.0.0"
-    clsx "1.1.1"
-    qrcode "1.5.0"
-    react-remove-scroll "2.5.4"
-
 "@ryansonshine/commitizen@4.2.8", "@ryansonshine/commitizen@^4.2.6":
   version "4.2.8"
   resolved "https://registry.yarnpkg.com/@ryansonshine/commitizen/-/commitizen-4.2.8.tgz#18c7e1b81a2cb1cefc9c8da0b9a5c6d3bcf5ab3c"
@@ -6134,6 +6120,18 @@ ast-types@^0.14.2:
   integrity sha512-O0yuUDnZeQDL+ncNGlJ78BiO4jnYI3bvMsD5prT0/nsgijG/LpNBIr63gTjVTNsiGkgQhiyCShTgxt8oXOrklA==
   dependencies:
     tslib "^2.0.1"
+
+asteroidkit-rk@0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/asteroidkit-rk/-/asteroidkit-rk-0.8.1.tgz#e2a2662cf511a528a0a6fab36bafcbcbd43c581a"
+  integrity sha512-ivS1Ophtr9RNIxJhjcvcBTk+DPFqAzXU5MU3Vld7w4ug5pHcY62cdBAWuNsYCQvJQPLGW+0QsJ9vvkeYnl3tOQ==
+  dependencies:
+    "@vanilla-extract/css" "1.9.1"
+    "@vanilla-extract/dynamic" "2.0.2"
+    "@vanilla-extract/sprinkles" "1.5.0"
+    clsx "1.1.1"
+    qrcode "1.5.0"
+    react-remove-scroll "2.5.4"
 
 astral-regex@^2.0.0:
   version "2.0.0"

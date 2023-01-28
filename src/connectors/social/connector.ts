@@ -1,4 +1,4 @@
-import { Wallet } from '@rainbow-me/rainbowkit';
+import { Wallet } from 'asteroidkit-rk';
 import { CHAIN_NAMESPACES } from '@web3auth/base';
 import { Web3AuthCore } from '@web3auth/core';
 import { OpenloginAdapter } from '@web3auth/openlogin-adapter';
@@ -18,7 +18,7 @@ const chainConfig = {
 
 const web3AuthInstance = new Web3AuthCore({
   clientId:
-    'BGKoZEAe6OaeD4dmzcofTXhKG813VVsVjbMHtxMF7BKRuSZyYClEBrbdmm7SS52dmLUbsQNhHrw-WJvLnzH7rzY',
+    'BBJ4lhDKJUof04YIDVmcsLdI-uNdyEr3ZWytZxy5DdcYsQY1z2N6NyMqGrl3EMjHH0Q6_z3pFPWFeb7FszSt7fk',
   chainConfig,
 });
 
