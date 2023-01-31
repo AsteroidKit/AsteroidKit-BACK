@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import { logEvent as firebaseLogEvent, getAnalytics } from 'firebase/analytics';
 
 export interface AppConfigInterface {
   accentColor: string;
@@ -26,6 +27,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
+let hasSentLoadConfigurationEvent = false;
+
 export const fetchFromServers = async (
   appId: string
 ): Promise<AppConfigInterface> => {
@@ -36,6 +39,14 @@ export const fetchFromServers = async (
 
   if (!appInfoSnap.exists()) {
     throw new Error('No application was found');
+  }
+
+  if (!hasSentLoadConfigurationEvent) {
+    firebaseLogEvent(getAnalytics(app), 'fetch_app_config', {
+      appId,
+    });
+
+    hasSentLoadConfigurationEvent = true;
   }
 
   return {

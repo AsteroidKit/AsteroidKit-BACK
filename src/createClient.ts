@@ -5,14 +5,14 @@ import { metaMaskWallet } from 'asteroidkit-rk/wallets';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 
-import { mainnet } from 'wagmi/chains';
+import { avalanche, mainnet, optimism, polygon } from 'wagmi/chains';
 
 import { configureChains, createClient as wagmiCreateClient } from 'wagmi';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const createClient = () => {
   const { chains, provider } = configureChains(
-    [mainnet],
+    [mainnet, optimism, avalanche, polygon],
     [
       alchemyProvider({
         // This is Alchemy's default API key.

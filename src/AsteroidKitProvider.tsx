@@ -14,7 +14,6 @@ import {
 } from 'asteroidkit-rk/dist/components/RainbowKitProvider/RainbowKitProvider';
 import { Chain, configureChains, mainnet, useClient } from 'wagmi';
 
-// import 'asteroidkit-rk/styles.css';
 import { SiweMessage } from 'siwe';
 import {
   argentWallet,
@@ -309,7 +308,7 @@ const AsteroidKitConfigurationProvider = ({
     size: 'compact',
   } as AsteroidKitConfiguration);
 
-  const { setValue } = useAsteroidKitSyncState();
+  const { setValue, setReady } = useAsteroidKitSyncState();
 
   // load data
   useEffect(() => {
@@ -356,6 +355,7 @@ const AsteroidKitConfigurationProvider = ({
         const connectors = connectorsForWallets(walletGroups);
 
         setValue(connectors);
+        setReady(true);
       })
       .catch((error) => {
         throw new Error(

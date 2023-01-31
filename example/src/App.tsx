@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
       <WagmiConfig client={client}>
-        <AsteroidKitProvider appId="testapp">
+        <AsteroidKitProvider appId="123">
           <ConnectButton />
         </AsteroidKitProvider>
       </WagmiConfig>
