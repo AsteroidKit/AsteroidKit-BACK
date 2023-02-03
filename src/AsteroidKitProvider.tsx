@@ -475,7 +475,7 @@ const AsteroidKitProvider: FC<AsteroidKitProviderProps & { appId: string }> = ({
 
     // rk-wallet-option-openlogin_twitch
     const twitchButton = document.querySelectorAll(
-      '[rk-wallet-option-openlogin_twitch"]'
+      '[data-testid~="rk-wallet-option-openlogin_twitch"]'
     )[0] as HTMLButtonElement;
 
     if ((!!googleButton || !!twitchButton) && !dummyClickHappenedRef.current) {
