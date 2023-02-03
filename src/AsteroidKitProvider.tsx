@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useRef } from 'react';
 import {
   createAuthenticationAdapter,
   RainbowKitAuthenticationProvider,
@@ -31,6 +31,7 @@ import {
   GoogleConnector,
   TwitchConnector,
 } from './connectors/social/connector';
+import { isMobile } from './isMobileUtil';
 
 type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
@@ -462,9 +463,49 @@ const AsteroidKitProvider: FC<AsteroidKitProviderProps & { appId: string }> = ({
   modalSize,
 }) => {
   const client = useClient();
+  const dummyClickHappenedRef = useRef(false);
 
   const chainsFromClient = client.chains;
   const chains = chainsFromClient ?? chainsFromUser;
+
+  function handleSubtreeModified() {
+    const googleButton = document.querySelectorAll(
+      '[data-testid~="rk-wallet-option-openlogin_google"]'
+    )[0] as HTMLButtonElement;
+
+    // rk-wallet-option-openlogin_twitch
+    const twitchButton = document.querySelectorAll(
+      '[rk-wallet-option-openlogin_twitch"]'
+    )[0] as HTMLButtonElement;
+
+    if ((!!googleButton || !!twitchButton) && !dummyClickHappenedRef.current) {
+      // Same check made on Rainbowkit
+      if (isMobile()) {
+        // Real check to be sure if we're REALLY not using mobile browser emulator
+        if (window.navigator.maxTouchPoints > 1) {
+          console.info('clicking on Google');
+          setTimeout(() => {
+            googleButton?.click();
+            twitchButton?.click();
+          });
+          dummyClickHappenedRef.current = true;
+        }
+      }
+    }
+
+    if (!googleButton) {
+      dummyClickHappenedRef.current = false;
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('DOMSubtreeModified', handleSubtreeModified);
+
+    return document.removeEventListener(
+      'DOMSubtreeModified',
+      handleSubtreeModified
+    );
+  }, []);
 
   return (
     <AsteroidKitSyncProvider>
