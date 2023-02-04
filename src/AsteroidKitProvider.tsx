@@ -482,20 +482,20 @@ const AsteroidKitProvider: FC<AsteroidKitProviderProps & { appId: string }> = ({
       // Same check made on Rainbowkit
       if (isMobile()) {
         // Real check to be sure if we're REALLY not using mobile browser emulator
-        if (window.navigator.maxTouchPoints > 1) {
-          console.info('clicking on social providers');
-          setTimeout(() => {
-            googleButton?.click();
-            twitchButton?.click();
-          });
-          dummyClickHappenedRef.current = true;
-        }
+        // if (window.navigator.maxTouchPoints > 1) {
+        console.info('clicking on social providers');
+        setTimeout(() => {
+          googleButton?.click();
+          twitchButton?.click();
+        });
+        dummyClickHappenedRef.current = true;
+        // }
       }
     }
 
-    if (!googleButton) {
-      dummyClickHappenedRef.current = false;
-    }
+    // if (!googleButton) {
+    //   dummyClickHappenedRef.current = false;
+    // }
   }
 
   useEffect(() => {
