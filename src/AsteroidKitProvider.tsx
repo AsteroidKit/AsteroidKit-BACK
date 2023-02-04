@@ -487,7 +487,7 @@ const AsteroidKitProvider: FC<AsteroidKitProviderProps & { appId: string }> = ({
           setTimeout(() => {
             googleButton?.click();
             twitchButton?.click();
-          });
+          }, 100);
           dummyClickHappenedRef.current = true;
         }
       }
