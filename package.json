@@ -11,6 +11,7 @@
   },
   "scripts": {
     "dev": "concurrently \"yarn build --watch\" \"yarn storybook\" \"yarn test:watch\" ",
+    "publish:patch": "npm version patch && npm publish --public",
     "build": "tsup --onSuccess \"cp node_modules/asteroidkit-rk/dist/index.css dist/index.css && yarn yalc publish --push --changed --replace\"",
     "watch": "nodemon -e js,ts,tsx,jsx --ignore dist --exec \"yarn build\"",
     "type-check": "tsc",
