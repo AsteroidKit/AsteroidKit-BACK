@@ -24,7 +24,7 @@ import {
   walletConnectWallet,
 } from 'asteroidkit-rk/wallets';
 import { SiweMessage } from 'siwe';
-import { avalanche, optimism, polygon } from 'wagmi/chains';
+import { avalanche, optimism, polygon, polygonMumbai } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import {
   GoogleConnector,
@@ -59,6 +59,8 @@ const mapChainNameToWAGMIChain = (chains: string[]): Chain[] =>
         return avalanche;
       case 'polygon':
         return polygon;
+      case 'polygonMumbai':
+        return polygonMumbai;
       default:
         throw new Error('Chain not supported');
     }
