@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "asteroidkit": "^0.0.27",
+    "asteroidkit": "link:.yalc/asteroidkit",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "wagmi": "^0.9.1"

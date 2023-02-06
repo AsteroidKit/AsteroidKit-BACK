@@ -1,20 +1,20 @@
-import React, { FC, useState, useEffect, useRef } from 'react';
 import {
+  AsteroidKitSyncProvider,
+  connectorsForWallets,
   createAuthenticationAdapter,
+  lightTheme,
   RainbowKitAuthenticationProvider,
   RainbowKitProvider,
-  AsteroidKitSyncProvider,
   useAsteroidKitSyncState,
-  lightTheme,
-  connectorsForWallets,
 } from 'asteroidkit-rk';
 import {
   RainbowKitProviderProps,
   Theme,
 } from 'asteroidkit-rk/dist/components/RainbowKitProvider/RainbowKitProvider';
+import React, { FC, useEffect, useState } from 'react';
 import { Chain, configureChains, mainnet, useClient } from 'wagmi';
 
-import { SiweMessage } from 'siwe';
+import { ModalSizes } from 'asteroidkit-rk/dist/components/RainbowKitProvider/ModalSizeContext';
 import {
   argentWallet,
   coinbaseWallet,
@@ -23,15 +23,14 @@ import {
   trustWallet,
   walletConnectWallet,
 } from 'asteroidkit-rk/wallets';
-import { publicProvider } from 'wagmi/providers/public';
+import { SiweMessage } from 'siwe';
 import { avalanche, optimism, polygon } from 'wagmi/chains';
-import { ModalSizes } from 'asteroidkit-rk/dist/components/RainbowKitProvider/ModalSizeContext';
-import { fetchFromServers } from './lib/fetcher';
+import { publicProvider } from 'wagmi/providers/public';
 import {
   GoogleConnector,
   TwitchConnector,
 } from './connectors/social/connector';
-import { isMobile } from './isMobileUtil';
+import { fetchFromServers } from './lib/fetcher';
 
 type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
@@ -463,47 +462,47 @@ const AsteroidKitProvider: FC<AsteroidKitProviderProps & { appId: string }> = ({
   modalSize,
 }) => {
   const client = useClient();
-  const dummyClickHappenedRef = useRef(false);
+  // const dummyClickHappenedRef = useRef(false);
 
   const chainsFromClient = client.chains;
   const chains = chainsFromClient ?? chainsFromUser;
 
-  function handleSubtreeModified() {
-    const googleButton = document.querySelectorAll(
-      '[data-testid~="rk-wallet-option-openlogin_google"]'
-    )[0] as HTMLButtonElement;
+  // function handleSubtreeModified() {
+  //   const googleButton = document.querySelectorAll(
+  //     '[data-testid~="rk-wallet-option-openlogin_google"]'
+  //   )[0] as HTMLButtonElement;
 
-    // rk-wallet-option-openlogin_twitch
-    const twitchButton = document.querySelectorAll(
-      '[data-testid~="rk-wallet-option-openlogin_twitch"]'
-    )[0] as HTMLButtonElement;
+  //   // rk-wallet-option-openlogin_twitch
+  //   const twitchButton = document.querySelectorAll(
+  //     '[data-testid~="rk-wallet-option-openlogin_twitch"]'
+  //   )[0] as HTMLButtonElement;
 
-    if ((!!googleButton || !!twitchButton) && !dummyClickHappenedRef.current) {
-      // Same check made on Rainbowkit
-      if (isMobile()) {
-        // Real check to be sure if we're REALLY not using mobile browser emulator
-        if (window.navigator.maxTouchPoints > 1) {
-          console.info('clicking on social providers');
-          setTimeout(() => {
-            googleButton?.click();
-            twitchButton?.click();
-          }, 100);
-          dummyClickHappenedRef.current = true;
-        }
-      }
-    }
+  //   if ((!!googleButton || !!twitchButton) && !dummyClickHappenedRef.current) {
+  //     // Same check made on Rainbowkit
+  //     if (isMobile()) {
+  //       // Real check to be sure if we're REALLY not using mobile browser emulator
+  //       if (window.navigator.maxTouchPoints > 1) {
+  //         console.info('clicking on social providers');
+  //         setTimeout(() => {
+  //           googleButton?.click();
+  //           twitchButton?.click();
+  //         }, 100);
+  //         dummyClickHappenedRef.current = true;
+  //       }
+  //     }
+  //   }
 
-    // if (!googleButton) {
-    //   dummyClickHappenedRef.current = false;
-    // }
-  }
+  //   // if (!googleButton) {
+  //   //   dummyClickHappenedRef.current = false;
+  //   // }
+  // }
 
-  useEffect(() => {
-    document.addEventListener('DOMSubtreeModified', handleSubtreeModified);
+  // useEffect(() => {
+  //   document.addEventListener('DOMSubtreeModified', handleSubtreeModified);
 
-    return () =>
-      document.removeEventListener('DOMSubtreeModified', handleSubtreeModified);
-  }, []);
+  //   return () =>
+  //     document.removeEventListener('DOMSubtreeModified', handleSubtreeModified);
+  // }, []);
 
   return (
     <AsteroidKitSyncProvider>
