@@ -12,7 +12,7 @@ import {
   Theme,
 } from 'asteroidkit-rk/dist/components/RainbowKitProvider/RainbowKitProvider';
 import React, { FC, useEffect, useState } from 'react';
-import { Chain, configureChains, mainnet, useClient } from 'wagmi';
+import { Chain, configureChains, useClient } from 'wagmi';
 
 import { ModalSizes } from 'asteroidkit-rk/dist/components/RainbowKitProvider/ModalSizeContext';
 import {
@@ -24,7 +24,16 @@ import {
   walletConnectWallet,
 } from 'asteroidkit-rk/wallets';
 import { SiweMessage } from 'siwe';
-import { avalanche, optimism, polygon, polygonMumbai } from 'wagmi/chains';
+import {
+  avalanche,
+  avalancheFuji,
+  optimism,
+  optimismGoerli,
+  polygon,
+  polygonMumbai,
+  goerli,
+  mainnet,
+} from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import {
   GoogleConnector,
@@ -61,6 +70,12 @@ const mapChainNameToWAGMIChain = (chains: string[]): Chain[] =>
         return polygon;
       case 'polygonMumbai':
         return polygonMumbai;
+      case 'avalancheFuji':
+        return avalancheFuji;
+      case 'goerli':
+        return goerli;
+      case 'optimismGoerli':
+        return optimismGoerli;
       default:
         throw new Error('Chain not supported');
     }
