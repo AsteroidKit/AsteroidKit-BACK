@@ -12,7 +12,7 @@ import {
   Theme,
 } from 'asteroidkit-rk/dist/components/RainbowKitProvider/RainbowKitProvider';
 import React, { FC, useEffect, useState } from 'react';
-import { Chain, configureChains, mainnet, useClient } from 'wagmi';
+import { Chain, configureChains, goerli, mainnet, useClient } from 'wagmi';
 
 import { ModalSizes } from 'asteroidkit-rk/dist/components/RainbowKitProvider/ModalSizeContext';
 import {
@@ -24,7 +24,14 @@ import {
   walletConnectWallet,
 } from 'asteroidkit-rk/wallets';
 import { SiweMessage } from 'siwe';
-import { avalanche, optimism, polygon, polygonMumbai } from 'wagmi/chains';
+import {
+  avalanche,
+  avalancheFuji,
+  optimism,
+  optimismGoerli,
+  polygon,
+  polygonMumbai,
+} from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import {
   GoogleConnector,
@@ -48,23 +55,22 @@ interface AsteroidKitConfiguration {
   wallets: string[];
 }
 
-const mapChainNameToWAGMIChain = (chains: string[]): Chain[] =>
-  chains.map((chain) => {
-    switch (chain) {
-      case 'mainnet':
-        return mainnet;
-      case 'optimism':
-        return optimism;
-      case 'avalanche':
-        return avalanche;
-      case 'polygon':
-        return polygon;
-      case 'polygonMumbai':
-        return polygonMumbai;
-      default:
-        throw new Error('Chain not supported');
-    }
-  });
+const mapChainNameToWAGMIChain = (chains: string[]): Chain[] => {
+  const SupportedChains = {
+    avalanche,
+    avalancheFuji,
+    mainnet,
+    optimism,
+    polygon,
+    polygonMumbai,
+    goerli,
+    optimismGoerli,
+  };
+
+  return chains
+    .filter((chain) => Object.keys(SupportedChains).includes(chain))
+    .map((chain) => SupportedChains[chain as keyof typeof SupportedChains]);
+};
 
 const mapWalletNameToRainbowKitWallet = (
   walletList: string[] = [],
