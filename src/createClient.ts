@@ -7,10 +7,13 @@ import { publicProvider } from 'wagmi/providers/public';
 
 import {
   avalanche,
+  avalancheFuji,
   mainnet,
   optimism,
+  optimismGoerli,
   polygon,
   polygonMumbai,
+  goerli,
 } from 'wagmi/chains';
 
 import { configureChains, createClient as wagmiCreateClient } from 'wagmi';
@@ -18,7 +21,16 @@ import { configureChains, createClient as wagmiCreateClient } from 'wagmi';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const createClient = () => {
   const { chains, provider } = configureChains(
-    [mainnet, optimism, avalanche, polygon, polygonMumbai],
+    [
+      mainnet,
+      optimism,
+      avalanche,
+      polygon,
+      polygonMumbai,
+      goerli,
+      avalancheFuji,
+      optimismGoerli,
+    ],
     [
       alchemyProvider({
         // This is Alchemy's default API key.
