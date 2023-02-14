@@ -12,7 +12,7 @@ import {
   Theme,
 } from 'asteroidkit-rk/dist/components/RainbowKitProvider/RainbowKitProvider';
 import React, { FC, useEffect, useState } from 'react';
-import { Chain, configureChains, goerli, mainnet, useClient } from 'wagmi';
+import { Chain, configureChains, useClient } from 'wagmi';
 
 import { ModalSizes } from 'asteroidkit-rk/dist/components/RainbowKitProvider/ModalSizeContext';
 import {
@@ -31,6 +31,8 @@ import {
   optimismGoerli,
   polygon,
   polygonMumbai,
+  goerli,
+  mainnet,
 } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import {
