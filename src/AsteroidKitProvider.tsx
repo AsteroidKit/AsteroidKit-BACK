@@ -36,6 +36,7 @@ import {
 } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import {
+  configureWeb3Auth,
   GoogleConnector,
   TwitchConnector,
 } from './connectors/social/connector';
@@ -353,11 +354,19 @@ const AsteroidKitConfigurationProvider = ({
         ];
 
         if (data.social) {
+          const web3AuthInstance = configureWeb3Auth(wagmiChains);
+
           walletGroups.push({
             groupName: 'Social',
             wallets: [
-              GoogleConnector({ chains: wagmiChains }),
-              TwitchConnector({ chains: wagmiChains }),
+              GoogleConnector({
+                chains: wagmiChains,
+                web3AuthInstance,
+              }),
+              TwitchConnector({
+                chains: wagmiChains,
+                web3AuthInstance,
+              }),
             ],
           });
         }
